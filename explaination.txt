@@ -1,0 +1,79 @@
+<<<<<<< HEAD
+=======
+1. Loading and Preprocessing Data
+    Loading Dataset:
+    The dataset is loaded into a pandas DataFrame for easy manipulation. Missing values are handled by replacing them with the column's mean value. This ensures the dataset is complete for modeling.
+
+    Feature-Target Separation:
+    Features (X) and the target variable (y) are separated. If the target column is not specified, the last column is assumed as the target.
+
+Identifying Feature Types:
+        Numerical features are identified for scaling.
+        Categorical features are identified for encoding using OneHotEncoder.
+
+
+
+2. Preprocessing Pipelines
+    Numerical Preprocessing:
+    StandardScaler is used to normalize numerical features by removing the mean and scaling to unit variance.
+
+    Categorical Preprocessing:
+    OneHotEncoder transforms categorical variables into a binary matrix, ensuring models can handle these features.
+
+ColumnTransformer:
+Combines preprocessing for numerical and categorical features into a single step, applied uniformly to the dataset.
+
+
+
+3. Train-Test Split
+
+The dataset is split into training and testing sets:
+    Training Set: Used to train models.
+    Testing Set: Used to evaluate the models' performance on unseen data.
+
+
+
+4. Base Models
+    Two regression models are used:
+
+    Linear Regression:
+    Assumes a linear relationship between the features and the target variable.
+
+    Decision Tree Regressor:
+    Builds a tree where each split is based on feature values that minimize variance in the target.
+
+Both models are trained on the dataset using a pipeline (preprocessing + model) and evaluated using:
+
+    R² Score: Proportion of variance in the target explained by the model.
+    Mean Squared Error (MSE): Measures the average squared difference between predicted and actual values.
+
+
+
+5. Feature Selection Techniques
+Three feature selection methods are applied to reduce the number of features and improve model interpretability:
+
+1.SelectKBest (f_regression):
+Selects the top k features based on their correlation with the target using an F-test.
+
+2.SelectKBest (mutual_info):
+Selects features based on mutual information, measuring the dependency between features and the target.
+
+3.Random Forest Feature Importance:
+A Random Forest regressor is trained, and feature importance scores are extracted. The top k features with the highest importance are selected.
+
+
+
+
+6. Evaluation with Selected Features
+Models are retrained on the reduced dataset (selected features).
+Performance metrics (R² and MSE) are calculated and compared for each combination of feature selection method and model.
+
+
+
+7. Visualization
+Two bar plots summarize the base model results:
+
+    R² Scores: Highlights the models' explanatory power.
+    Mean Squared Error (MSE): Shows prediction error for each model.
+These visualizations help compare model performance before and after feature selection.
+>>>>>>> a11c77ee287326d67f5fdb0c83bab547b6501ed2
