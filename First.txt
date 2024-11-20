@@ -1,12 +1,1 @@
-Housing Dataset
-
-Price Prediction Problem
-load and preprocess the dataset, handling missing values, encoding categorical variables, normallize/ standarize
-features and splitting it into training and testing sets.
-train the classifier like linear regression and decision tree as your base classifiers and evaluate its performance on the test set.
-apply the feature selection technique (minimum 3) to select a subset of fetaures.
-compare the performance of eaach classifier using regression evaluation measures(accuracy , mean sq error)
-compare and analyze the performance of each appproach in terms of model performance and no. of selected features.
-visualize and compare the results of different models and feature selection technique.
-
-answer pushed
+Hello now comes the next obstacle!
