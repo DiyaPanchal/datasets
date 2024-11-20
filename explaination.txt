@@ -1,68 +1,76 @@
-Step 1: Load and Inspect the Dataset
-Goal: Read the dataset into memory and inspect its structure.
-Action:
-        Use pandas to load the CSV file.
-        Examine the dataset for missing values and column types using .info() and .head().
+1. Loading and Preprocessing Data
+    Loading Dataset:
+    The dataset is loaded into a pandas DataFrame for easy manipulation. Missing values are handled by replacing them with the column's mean value. This ensures the dataset is complete for modeling.
 
+    Feature-Target Separation:
+    Features (X) and the target variable (y) are separated. If the target column is not specified, the last column is assumed as the target.
 
-Step 2: Handle Missing Values
-Goal: Fill in missing data to make the dataset usable for machine learning models.
-Action:
-    Use SimpleImputer to replace missing values with the mean of each column.
-    Why: Missing values can cause errors or biases during training, so imputing ensures completeness.
-
-
-Step 3: Normalize/Standardize Features
-Goal: Ensure all features are on the same scale to avoid domination of certain features during training.
-Action:
-    Use StandardScaler to standardize each feature to have a mean of 0 and a standard deviation of 1.
-    Why: Models like Linear Regression are sensitive to the scale of input features.
-
-
-Step 4: Split the Dataset
-Goal: Separate data into training and testing sets to evaluate model performance on unseen data.
-Action:
-    Use train_test_split to divide data into 80% training and 20% testing.
-    Why: To prevent overfitting and ensure the model generalizes well.
-
-
-Step 5: Train Base Models
-Goal: Build baseline models for comparison.
-Action:
-Train two models:
-    Linear Regression: Assumes a linear relationship between features and the target.
-    Decision Tree Regressor: A tree-based model that can capture non-linear relationships.
-Evaluate models using:
-    Mean Squared Error (MSE): Measures the average squared difference between predictions and actual values (lower is better).
-    R² Score: Represents how well the model explains variance in the target (closer to 1 is better).
+Identifying Feature Types:
+        Numerical features are identified for scaling.
+        Categorical features are identified for encoding using OneHotEncoder.
 
 
 
-Step 6: Apply Feature Selection Techniques
-Goal: Reduce the number of features while retaining important information.
-Techniques Used:
-SelectKBest (f_regression):
-    Selects the top k features with the highest correlation with the target using ANOVA F-statistics.
-SelectKBest (mutual_info_regression):
-    Selects the top k features based on mutual information, which measures dependencies between features and the target.
-Principal Component Analysis (PCA):
-    Reduces dimensionality by transforming features into a smaller number of principal components while retaining maximum variance.
+2. Preprocessing Pipelines
+    Numerical Preprocessing:
+    StandardScaler is used to normalize numerical features by removing the mean and scaling to unit variance.
 
-Why: Feature selection improves computational efficiency and can enhance model interpretability and performance.   
+    Categorical Preprocessing:
+    OneHotEncoder transforms categorical variables into a binary matrix, ensuring models can handle these features.
 
-
-Step 7: Evaluate Models After Feature Selection
-Goal: Assess the impact of feature selection on model performance.
-Action:
-    Retrain the models on the transformed datasets from each feature selection technique.
-    Compute MSE and R² for each approach.
-Why: To determine whether reducing features improves or degrades model accuracy.
+ColumnTransformer:
+Combines preprocessing for numerical and categorical features into a single step, applied uniformly to the dataset.
 
 
 
-Step 8: Compare Results
-Goal: Analyze the effectiveness of each feature selection technique.
-Action:
-    Aggregate performance metrics into a summary table.
-    Plot results using bar charts to visually compare MSE across models and techniques.
-Why: Visualization helps identify the most efficient model and feature selection strategy.
+3. Train-Test Split
+
+The dataset is split into training and testing sets:
+    Training Set: Used to train models.
+    Testing Set: Used to evaluate the models' performance on unseen data.
+
+
+
+4. Base Models
+    Two regression models are used:
+
+    Linear Regression:
+    Assumes a linear relationship between the features and the target variable.
+
+    Decision Tree Regressor:
+    Builds a tree where each split is based on feature values that minimize variance in the target.
+
+Both models are trained on the dataset using a pipeline (preprocessing + model) and evaluated using:
+
+    R² Score: Proportion of variance in the target explained by the model.
+    Mean Squared Error (MSE): Measures the average squared difference between predicted and actual values.
+
+
+
+5. Feature Selection Techniques
+Three feature selection methods are applied to reduce the number of features and improve model interpretability:
+
+1.SelectKBest (f_regression):
+Selects the top k features based on their correlation with the target using an F-test.
+
+2.SelectKBest (mutual_info):
+Selects features based on mutual information, measuring the dependency between features and the target.
+
+3.Random Forest Feature Importance:
+A Random Forest regressor is trained, and feature importance scores are extracted. The top k features with the highest importance are selected.
+
+
+
+
+6. Evaluation with Selected Features
+Models are retrained on the reduced dataset (selected features).
+Performance metrics (R² and MSE) are calculated and compared for each combination of feature selection method and model.
+
+
+
+7. Visualization
+Two bar plots summarize the base model results:
+
+    R² Scores: Highlights the models' explanatory power.
+    Mean Squared Error (MSE): Shows prediction error for each model.
+These visualizations help compare model performance before and after feature selection.
