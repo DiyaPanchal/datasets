@@ -1,5 +1,6 @@
 Housing Dataset
 
+Price Prediction Problem
 load and preprocess the dataset, handling missing values, encoding categorical variables, normallize/ standarize
 features and splitting it into training and testing sets.
 train the classifier like linear regression and decision tree as your base classifiers and evaluate its performance on the test set.
